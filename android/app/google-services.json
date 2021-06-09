@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "187455804721",
+    "project_id": "cemec-innube",
+    "storage_bucket": "cemec-innube.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187455804721:android:c76899925375a2edf60c10",
+        "android_client_info": {
+          "package_name": "innube.cemec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187455804721-k6m9gnad847c4khco4im4f2vam18ufin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq8NRSLhlpM1ZbURJxyBPV9YQF72WI7Gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187455804721-k6m9gnad847c4khco4im4f2vam18ufin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
