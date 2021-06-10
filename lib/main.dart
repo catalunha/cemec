@@ -1,8 +1,7 @@
-import 'package:cemec/google_sign_in.dart';
-import 'package:cemec/home_page.dart';
+import 'package:cemec/google_signin_provider.dart';
+import 'package:cemec/login_or_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
@@ -19,60 +18,60 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark(),
-        home: HomePage(),
+        home: LoginOrHome(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final String title;
+//   final String title;
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Container(
-          width: 300,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black54,
-                  onPrimary: Colors.black,
-                  minimumSize: Size(double.infinity, 50),
-                ),
-                onPressed: () {
-                  final provider =
-                      Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.googleLogin();
-                },
-                icon: FaIcon(
-                  FontAwesomeIcons.google,
-                  color: Colors.red,
-                  size: 34,
-                ),
-                label: Text(
-                  'Entrar com Google',
-                  style: TextStyle(fontSize: 24, color: Colors.white),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class _MyHomePageState extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//         centerTitle: true,
+//       ),
+//       body: Center(
+//         child: Container(
+//           width: 300,
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               ElevatedButton.icon(
+//                 style: ElevatedButton.styleFrom(
+//                   primary: Colors.black54,
+//                   onPrimary: Colors.black,
+//                   minimumSize: Size(double.infinity, 50),
+//                 ),
+//                 onPressed: () {
+//                   final provider =
+//                       Provider.of<GoogleSignInProvider>(context, listen: false);
+//                   provider.googleLogin();
+//                 },
+//                 icon: FaIcon(
+//                   FontAwesomeIcons.google,
+//                   color: Colors.red,
+//                   size: 34,
+//                 ),
+//                 label: Text(
+//                   'Entrar com Google',
+//                   style: TextStyle(fontSize: 24, color: Colors.white),
+//                 ),
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

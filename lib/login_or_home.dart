@@ -1,10 +1,10 @@
-import 'package:cemec/logged_in_widget.dart';
-import 'package:cemec/main.dart';
+import 'package:cemec/home.dart';
+import 'package:cemec/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LoginOrHome extends StatelessWidget {
+  const LoginOrHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class HomePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            return LoggedInWidget();
+            return Home();
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Something went Wrong !'),
             );
           } else {
-            return MyHomePage(title: 'CEMEC');
+            return Login();
           }
         },
       ),

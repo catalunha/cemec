@@ -1,9 +1,9 @@
-import 'package:cemec/google_sign_in.dart';
+import 'package:cemec/google_signin_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoggedInWidget extends StatelessWidget {
+class Home extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -43,15 +43,30 @@ class LoggedInWidget extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              user.displayName!,
+              "phoneNumber: ${user.phoneNumber ?? '...'}",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            SizedBox(height: 8),
+            Text(
+              "displayName: ${user.displayName ?? '...'}",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             SizedBox(height: 8),
             Text(
-              user.email!,
+              "email: ${user.email ?? '...'}",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             SizedBox(height: 8),
+            Text(
+              "uid: ${user.uid}",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            Text(
+              "providerData: ${user.providerData.toString()}",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ],
         ),
       ),
