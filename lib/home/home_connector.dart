@@ -18,6 +18,7 @@ class HomeConnector extends StatelessWidget {
         userDisplayName: vm.userDisplayName,
         userEmail: vm.userEmail,
         userUid: vm.userUid,
+        setor: vm.setor,
       ),
     );
   }
@@ -33,6 +34,7 @@ class HomeViewModelFactory extends VmFactory<AppState, HomeConnector> {
         userDisplayName: state.loginState.userFirebaseAuth?.displayName ?? '',
         userEmail: state.loginState.userFirebaseAuth?.email ?? '',
         userUid: state.loginState.userFirebaseAuth?.uid ?? '',
+        setor: state.userState.userCurrent?.setor ?? '',
       );
 }
 
@@ -43,6 +45,7 @@ class HomeViewModel extends Vm {
   final String userDisplayName;
   final String userEmail;
   final String userUid;
+  final String setor;
 
   HomeViewModel({
     required this.signOut,
@@ -51,11 +54,13 @@ class HomeViewModel extends Vm {
     required this.userDisplayName,
     required this.userEmail,
     required this.userUid,
+    required this.setor,
   }) : super(equals: [
           userPhotoUrl,
           userPhoneNumber,
           userDisplayName,
           userEmail,
-          userUid
+          userUid,
+          setor
         ]);
 }

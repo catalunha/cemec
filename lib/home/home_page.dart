@@ -7,6 +7,7 @@ class HomePage extends StatelessWidget {
   final String userDisplayName;
   final String userEmail;
   final String userUid;
+  final String setor;
   const HomePage({
     Key? key,
     required this.signOut,
@@ -15,6 +16,7 @@ class HomePage extends StatelessWidget {
     required this.userDisplayName,
     required this.userEmail,
     required this.userUid,
+    required this.setor,
   }) : super(key: key);
 
   @override
@@ -23,10 +25,10 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('HomePage'),
         actions: [
-          TextButton(
-            onPressed: signOut,
-            child: Text('Sair'),
-          )
+          // TextButton(
+          //   onPressed: signOut,
+          //   child: Text('Sair'),
+          // )
         ],
       ),
       body: Container(
@@ -63,6 +65,11 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 8),
             Text(
               "uid: $userUid",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            Text(
+              "setor: $setor",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ],

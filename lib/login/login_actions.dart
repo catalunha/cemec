@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:cemec/app_state.dart';
 import 'package:cemec/login/login_state.dart';
+import 'package:cemec/user/user_action.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -14,6 +15,7 @@ class SignInLoginAction extends ReduxAction<AppState> {
     var google = GoogleSignInOrSignOut();
     bool done = await google.googleLogin();
     if (done) {
+      await dispatchFuture(GetDocUserAsyncUserAction());
       return state.copy(
         loginState: state.loginState.copy(
           statusFirebaseAuth: StatusFirebaseAuth.authenticated,
