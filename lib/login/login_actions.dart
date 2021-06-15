@@ -17,6 +17,7 @@ class SignInLoginAction extends ReduxAction<AppState> {
       return state.copy(
         loginState: state.loginState.copy(
           statusFirebaseAuth: StatusFirebaseAuth.authenticated,
+          userFirebaseAuth: FirebaseAuth.instance.currentUser,
         ),
       );
     }
@@ -33,6 +34,7 @@ class SignOutLoginAction extends ReduxAction<AppState> {
     return state.copy(
       loginState: state.loginState.copy(
         statusFirebaseAuth: StatusFirebaseAuth.unAuthenticated,
+        userFirebaseAuth: null,
       ),
     );
   }

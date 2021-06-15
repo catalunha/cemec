@@ -13,6 +13,11 @@ class HomeConnector extends StatelessWidget {
       vm: () => HomeViewModelFactory(this),
       builder: (context, vm) => HomePage(
         signOut: vm.signOut,
+        userPhotoUrl: vm.userPhotoUrl,
+        userPhoneNumber: vm.userPhoneNumber,
+        userDisplayName: vm.userDisplayName,
+        userEmail: vm.userEmail,
+        userUid: vm.userUid,
       ),
     );
   }
@@ -23,13 +28,34 @@ class HomeViewModelFactory extends VmFactory<AppState, HomeConnector> {
   @override
   HomeViewModel fromStore() => HomeViewModel(
         signOut: () => dispatch(SignOutLoginAction()),
+        userPhotoUrl: state.loginState.userFirebaseAuth?.photoURL ?? '',
+        userPhoneNumber: state.loginState.userFirebaseAuth?.phoneNumber ?? '',
+        userDisplayName: state.loginState.userFirebaseAuth?.displayName ?? '',
+        userEmail: state.loginState.userFirebaseAuth?.email ?? '',
+        userUid: state.loginState.userFirebaseAuth?.uid ?? '',
       );
 }
 
 class HomeViewModel extends Vm {
   final VoidCallback signOut;
+  final String userPhotoUrl;
+  final String userPhoneNumber;
+  final String userDisplayName;
+  final String userEmail;
+  final String userUid;
 
   HomeViewModel({
     required this.signOut,
-  }) : super(equals: []);
+    required this.userPhotoUrl,
+    required this.userPhoneNumber,
+    required this.userDisplayName,
+    required this.userEmail,
+    required this.userUid,
+  }) : super(equals: [
+          userPhotoUrl,
+          userPhoneNumber,
+          userDisplayName,
+          userEmail,
+          userUid
+        ]);
 }
