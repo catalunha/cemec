@@ -1,11 +1,8 @@
-import 'package:async_redux/async_redux.dart';
-import 'package:cemec/app_state.dart';
-import 'package:cemec/google_signin_provider.dart';
-import 'package:cemec/login_or_home.dart';
-import 'package:cemec/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
+import 'package:async_redux/async_redux.dart';
+import 'package:cemec/app_state.dart';
+import 'package:cemec/routes.dart';
 
 late Store<AppState> store;
 final navigatorKey = GlobalKey<NavigatorState>();
