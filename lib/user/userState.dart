@@ -3,25 +3,25 @@ import 'package:flutter/foundation.dart';
 import 'package:cemec/user/userModel.dart';
 
 class UserState {
-  final List<UserModel> userList;
   final UserModel? userCurrent;
+  final List<UserModel> userList;
 
   UserState({
-    required this.userList,
     required this.userCurrent,
+    required this.userList,
   });
 
   factory UserState.initialState() => UserState(
-        userList: [],
         userCurrent: null,
+        userList: [],
       );
   UserState copy({
-    List<UserModel>? userList,
     UserModel? userCurrent,
+    List<UserModel>? userList,
   }) =>
       UserState(
-        userList: userList ?? this.userList,
         userCurrent: userCurrent ?? this.userCurrent,
+        userList: userList ?? this.userList,
       );
 
   @override

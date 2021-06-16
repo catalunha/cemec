@@ -23,14 +23,59 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: Text('HomePage CEMEC'),
         actions: [
-          // TextButton(
-          //   onPressed: signOut,
-          //   child: Text('Sair'),
-          // )
+          PopupMenuButton(
+            tooltip:
+                '$userPhoneNumber\n$userEmail\n$userDisplayName\n${userUid.substring(0, 7)}\n$setor',
+            icon: CircleAvatar(
+              radius: 25,
+              backgroundColor: Colors.blue,
+              child: CircleAvatar(
+                radius: 23,
+                backgroundImage: NetworkImage(userPhotoUrl),
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)),
+            itemBuilder: (BuildContext buildContext) => [
+              PopupMenuItem(
+                child: TextButton(onPressed: null, child: Text('Perfil')),
+                value: '/sair',
+              ),
+              PopupMenuItem(
+                child: TextButton(onPressed: signOut, child: Text('Sair')),
+                value: '/sair',
+              )
+            ],
+            // onSelected: (value) {
+            //   if (value == '/sair') {
+            //     return signOut;
+            //   }
+            // },
+          )
+
+          // TextButton(onPressed: signOut, child: Text('Sair')),
+          // GestureDetector(
+          //   onTap: signOut,
+          //   child: Tooltip(
+          //     message:
+          //         '$userPhoneNumber\n$userEmail\n$userDisplayName\n${userUid.substring(0, 7)}',
+          //     child: CircleAvatar(
+          //       radius: 25,
+          //       backgroundColor: Colors.blue,
+          //       child: CircleAvatar(
+          //         radius: 23,
+          //         backgroundImage: NetworkImage(userPhotoUrl),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
+      // body: Center(
+      //   child: Text('Segue conteúdo aqui...'),
+      // ),
       body: Container(
         alignment: Alignment.center,
         color: Colors.blueGrey.shade900,

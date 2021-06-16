@@ -1,8 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:cemec/app_state.dart';
 import 'package:cemec/login/login_state.dart';
+import 'package:cemec/user/userState.dart';
 import 'package:cemec/user/user_action.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInLoginAction extends ReduxAction<AppState> {
@@ -15,14 +17,24 @@ class SignInLoginAction extends ReduxAction<AppState> {
     var google = GoogleSignInOrSignOut();
     bool done = await google.googleLogin();
     if (done) {
-      await dispatchFuture(GetDocUserAsyncUserAction());
-      return state.copy(
-        loginState: state.loginState.copy(
-          statusFirebaseAuth: StatusFirebaseAuth.authenticated,
-          userFirebaseAuth: FirebaseAuth.instance.currentUser,
-        ),
-      );
+      print(
+          '---> SignInLoginAction: alguem fez login verificando se uid esta em firebase');
+      await dispatchFuture(GetDocUserAsyncUserAction(
+          uid: FirebaseAuth.instance.currentUser!.uid));
+      print('---> SignInLoginAction: verificado se tem users correspondente');
+      print('---> SignInLoginAction: ${state.userState.userCurrent}');
+      if (state.userState.userCurrent != null) {
+        print('---> SignInLoginAction: state.userState.userCurrent != null');
+        return state.copy(
+          loginState: state.loginState.copy(
+            statusFirebaseAuth: StatusFirebaseAuth.authenticated,
+            userFirebaseAuth: FirebaseAuth.instance.currentUser,
+          ),
+        );
+      }
     }
+    print('---> SignInLoginAction: ninguem fez login');
+    await dispatchFuture(SignOutLoginAction());
     return state;
   }
 }
@@ -31,13 +43,12 @@ class SignOutLoginAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     var google = GoogleSignInOrSignOut();
-    await google.googleLogout();
-
+    var glogout = await google.googleLogout();
+    dispatch(NavigateAction.popUntil(ModalRoute.withName('/')));
+    print('---> SignOutLoginAction: googleLogout $glogout');
     return state.copy(
-      loginState: state.loginState.copy(
-        statusFirebaseAuth: StatusFirebaseAuth.unAuthenticated,
-        userFirebaseAuth: null,
-      ),
+      loginState: LoginState.initialState(),
+      userState: UserState.initialState(),
     );
   }
 }
@@ -48,12 +59,12 @@ class GoogleSignInOrSignOut {
   GoogleSignInAccount get user => _user!;
   Future<bool> googleLogin() async {
     try {
-      print('GoogleSignInProvider: 1');
+      print('--> GoogleSignInProvider: 1');
       final googleUser = await googleSignIn.signIn();
-      print('GoogleSignInProvider: 2');
+      print('--> GoogleSignInProvider: 2');
       if (googleUser == null) return true;
       _user = googleUser;
-      print('GoogleSignInProvider: 3');
+      print('--> GoogleSignInProvider: 3');
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,

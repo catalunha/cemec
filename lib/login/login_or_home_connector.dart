@@ -11,10 +11,10 @@ class LoginOrHomeConnector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, LoginOrHomeViewModel>(
-      vm: () => LoginOrHomeViewModelFactory(this),
-      builder: (context, vm) =>
-          vm.isLogged ? HomeConnector() : LoginConnector(),
-    );
+        vm: () => LoginOrHomeViewModelFactory(this),
+        builder: (context, vm) {
+          return vm.isLogged ? HomeConnector() : LoginConnector();
+        });
   }
 }
 
@@ -24,10 +24,11 @@ class LoginOrHomeViewModelFactory
 
   @override
   LoginOrHomeViewModel fromStore() => LoginOrHomeViewModel(
-      isLogged: state.loginState.statusFirebaseAuth ==
-              StatusFirebaseAuth.authenticated
-          ? true
-          : false);
+        isLogged: state.loginState.statusFirebaseAuth ==
+                StatusFirebaseAuth.authenticated
+            ? true
+            : false,
+      );
 }
 
 class LoginOrHomeViewModel extends Vm {
