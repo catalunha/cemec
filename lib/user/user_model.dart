@@ -1,4 +1,4 @@
-import 'package:cemec/repository.dart';
+import 'package:cemec/firebase_model.dart';
 
 class UserModel extends FirestoreModel {
   static final String collection = 'users';

@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:cemec/app_state.dart';
-import 'package:cemec/user/userModel.dart';
+import 'package:cemec/user/user_model.dart';
 import 'package:cemec/user/userState.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

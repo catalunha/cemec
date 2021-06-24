@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:cemec/user/userModel.dart';
+import 'package:cemec/user/user_model.dart';
 
 class UserState {
   final UserModel? userCurrent;
