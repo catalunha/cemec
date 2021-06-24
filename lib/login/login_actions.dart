@@ -7,13 +7,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+class CheckLoginAction extends ReduxAction<AppState> {
+  @override
+  Future<AppState?> reduce() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in! ${user.uid}');
+      }
+    });
+
+    return null;
+  }
+}
+
 class SignInLoginAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
-    if (state.loginState.statusFirebaseAuth ==
-        StatusFirebaseAuth.authenticated) {
-      return state;
-    }
+    // if (state.loginState.statusFirebaseAuth ==
+    //     StatusFirebaseAuth.authenticated) {
+    //   return state;
+    // }
     var google = GoogleSignInOrSignOut();
     bool done = await google.googleLogin();
     if (done) {
@@ -62,7 +77,7 @@ class GoogleSignInOrSignOut {
       print('--> GoogleSignInProvider: 1');
       final googleUser = await googleSignIn.signIn();
       print('--> GoogleSignInProvider: 2');
-      if (googleUser == null) return true;
+      if (googleUser == null) return false;
       _user = googleUser;
       print('--> GoogleSignInProvider: 3');
       final googleAuth = await googleUser.authentication;
