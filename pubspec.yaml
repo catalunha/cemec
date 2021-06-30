@@ -42,7 +42,7 @@ dependencies:
 
   # State Management
   provider: ^5.0.0
-  async_redux: ^10.0.1
+  async_redux: ^11.0.1
 
 
 

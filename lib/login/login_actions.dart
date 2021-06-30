@@ -9,16 +9,28 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class CheckLoginAction extends ReduxAction<AppState> {
   @override
-  Future<AppState?> reduce() async {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  Future<AppState> reduce() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
         print('User is currently signed out!');
+        await dispatch(SignInLoginAction());
       } else {
         print('User is signed in! ${user.uid}');
+        await dispatch(GetDocUserAsyncUserAction(uid: user.uid));
+        print('---> SignInLoginAction: verificado se tem users correspondente');
+        print('---> SignInLoginAction: ${state.userState.userCurrent}');
+        print('---> SignInLoginAction: state.userState.userCurrent != null');
+        state.copy(
+          loginState: state.loginState.copy(
+            statusFirebaseAuth: StatusFirebaseAuth.authenticated,
+            userFirebaseAuth: user,
+          ),
+        );
+        dispatch(NavigateAction.popUntil(ModalRoute.withName('/home')));
       }
     });
 
-    return null;
+    return state;
   }
 }
 
@@ -34,22 +46,25 @@ class SignInLoginAction extends ReduxAction<AppState> {
     if (done) {
       print(
           '---> SignInLoginAction: alguem fez login verificando se uid esta em firebase');
-      await dispatchFuture(GetDocUserAsyncUserAction(
+      await dispatch(GetDocUserAsyncUserAction(
           uid: FirebaseAuth.instance.currentUser!.uid));
+
       print('---> SignInLoginAction: verificado se tem users correspondente');
       print('---> SignInLoginAction: ${state.userState.userCurrent}');
       if (state.userState.userCurrent != null) {
         print('---> SignInLoginAction: state.userState.userCurrent != null');
-        return state.copy(
+        state.copy(
           loginState: state.loginState.copy(
             statusFirebaseAuth: StatusFirebaseAuth.authenticated,
             userFirebaseAuth: FirebaseAuth.instance.currentUser,
           ),
         );
+        dispatch(NavigateAction.popUntil(ModalRoute.withName('/home')));
       }
+    } else {
+      print('---> SignInLoginAction: ninguem fez login');
+      await dispatch(SignOutLoginAction());
     }
-    print('---> SignInLoginAction: ninguem fez login');
-    await dispatchFuture(SignOutLoginAction());
     return state;
   }
 }
@@ -59,7 +74,7 @@ class SignOutLoginAction extends ReduxAction<AppState> {
   Future<AppState> reduce() async {
     var google = GoogleSignInOrSignOut();
     var glogout = await google.googleLogout();
-    dispatch(NavigateAction.popUntil(ModalRoute.withName('/')));
+    dispatch(NavigateAction.popUntil(ModalRoute.withName('/login')));
     print('---> SignOutLoginAction: googleLogout $glogout');
     return state.copy(
       loginState: LoginState.initialState(),
