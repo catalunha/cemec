@@ -16,8 +16,8 @@ class GetDocUserAsyncUserAction extends ReduxAction<AppState> {
         .where('uid', isEqualTo: uid)
         .get();
     var userModelList = querySnapshot.docs
-        .map((queryDocumentSnapshot) => UserModel(queryDocumentSnapshot.id)
-            .fromMap(queryDocumentSnapshot.data()))
+        .map((queryDocumentSnapshot) => UserModel.fromMap(
+            queryDocumentSnapshot.id, queryDocumentSnapshot.data()))
         .toList();
     print('--> GetDocUserAsyncUserAction: ${userModelList.length}');
     if (userModelList.length == 1) {
